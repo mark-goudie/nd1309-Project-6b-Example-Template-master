@@ -173,8 +173,6 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
             address(0),
             address(0)
         );
-
-
     
     // Increment sku
     sku = sku + 1;
