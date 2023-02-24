@@ -47,3 +47,4 @@ contract Ownable {
         origOwner = newOwner;
     }
 }
+
