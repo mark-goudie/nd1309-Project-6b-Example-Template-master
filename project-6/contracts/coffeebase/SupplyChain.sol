@@ -180,40 +180,31 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
     emit Harvested(_upc);
   }
 
-  // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
-  function processItem(uint _upc) public 
-
-   harvested(_upc)
-
-  verifyCaller(items[_upc].originFarmerID)
-  {
-    // Update the appropriate fields
-      items[_upc].itemState = State.Processed;
-    // Emit the appropriate event
-     emit Processed(_upc);
-  }
-
-  // Define a function 'packItem' that allows a farmer to mark an item 'Packed'
-  function packItem(uint _upc) public processed(_upc) verifyCaller(items[_upc].originFarmerID)
-{
-    items[_upc].itemState = State.Packed;
-    emit Packed(_upc);
+ // Define a function 'processItem' that allows a farmer to mark an item 'Processed'
+function processItem(uint _upc) public harvested(_upc) verifyCaller(items[_upc].originFarmerID) {
+  // Update the appropriate fields
+  items[_upc].itemState = State.Processed;
+  // Emit the appropriate event
+  emit Processed(_upc);
 }
 
+// Define a function 'packItem' that allows a farmer to mark an item 'Packed'
+function packItem(uint _upc) public processed(_upc) verifyCaller(items[_upc].originFarmerID) {
+  // Update the appropriate fields
+  items[_upc].itemState = State.Packed;
+  // Emit the appropriate event
+  emit Packed(_upc);
+}
 
-  // Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
-  function sellItem(uint _upc, uint _price) public 
+// Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
+function sellItem(uint _upc, uint _price) public packed(_upc) verifyCaller(items[_upc].originFarmerID) {
+  // Update the appropriate fields
+  items[_upc].itemState = State.ForSale;
+  items[_upc].productPrice = _price;
+  // Emit the appropriate event
+  emit ForSale(_upc);
+}
 
-    packed(_upc)
-
-    verifyCaller(items[_upc].originFarmerID)
-    {
-        // Update the appropriate fields
-        items[_upc].itemState = State.ForSale;
-        items[_upc].productPrice = _price;
-        // Emit the appropriate event
-        emit ForSale(_upc);
-    }
 
   // Define a function 'buyItem' that allows the disributor to mark an item 'Sold'
   // Use the above defined modifiers to check if the item is available for sale, if the buyer has paid enough, 
