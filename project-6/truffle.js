@@ -1,6 +1,11 @@
-const HDWalletProvider = require("@truffle/hdwallet-provider");
-const mnemonic =
-  "spirit supply whale amount human item harsh scare congress discover talent hamster";
+const HDWallet = require("truffle-hdwallet-provider");
+const infuraKey = "d02f64471b354a6eae6a4defa9381e0e";
+//
+const fs = require("fs");
+const mnemonic = fs
+  .readFileSync(".secret")
+  .toString()
+  .trim();
 // const infuraKey = "4b73a48e08d44af9a6ed34e94b97195b";
 // const infuraKey = process.env.INFURAKEY;
 module.exports = {
@@ -27,10 +32,7 @@ module.exports = {
     },
     goerli: {
       provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://goerli.infura.io/v3/4b73a48e08d44af9a6ed34e94b97195b`
-        ),
+        new HDWalletProvider(mnemonic, `https://goerli.infura.io/v3/infuraKey`),
       network_id: 5, // goerli's id
       gas: 4465030, // goerli has a lower block limit than mainnet
       gasPrice: 24293790182,
