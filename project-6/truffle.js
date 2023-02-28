@@ -1,38 +1,8 @@
-/**
- * Use this file to configure your truffle project. It's seeded with some
- * common settings for different networks and features like migrations,
- * compilation and testing. Uncomment the ones you need or modify
- * them to suit your project as necessary.
- *
- * More information about configuration can be found at:
- *
- * truffleframework.com/docs/advanced/configuration
- *
- * To deploy via Infura you'll need a wallet provider (like truffle-hdwallet-provider)
- * to sign your transactions before they're sent to a remote public node. Infura API
- * keys are available for free at: infura.io/register
- *
- *   > > Using Truffle V5 or later? Make sure you install the `web3-one` version.
- *
- *   > > $ npm install truffle-hdwallet-provider@web3-one
- *
- * You'll also need a mnemonic - the twelve word phrase the wallet uses to generate
- * public/private key pairs. If you're publishing your code to GitHub make sure you load this
- * phrase from a file you've .gitignored so it doesn't accidentally become public.
- *
- */
-
-const HDWalletProvider = require("truffle-hdwallet-provider");
-
-const fs = require("fs");
-const mnemonic = fs
-  .readFileSync(".secret")
-  .toString()
-  .trim();
-
-const infuraKey = "4b73a48e08d44af9a6ed34e94b97195b";
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const mnemonic =
+  "spirit supply whale amount human item harsh scare congress discover talent hamster";
+// const infuraKey = "4b73a48e08d44af9a6ed34e94b97195b";
 // const infuraKey = process.env.INFURAKEY;
-
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -43,7 +13,6 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
@@ -56,30 +25,15 @@ module.exports = {
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
     },
-
-    rinkeby: {
-      networkCheckTimeout: 10000,
-      provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://rinkeby.infura.io/v3/${infuraKey}`
-        ),
-      network_id: 4, // rinkeby's id
-      gas: 4500000, // rinkeby has a lower block limit than mainnet
-      gasPrice: 150000000000,
-    },
-
     goerli: {
-      networkCheckTimeout: 10000,
       provider: () =>
         new HDWalletProvider(
           mnemonic,
-          `https://goerli.infura.io/v3/${infuraKey}`
+          `https://goerli.infura.io/v3/4b73a48e08d44af9a6ed34e94b97195b`
         ),
       network_id: 5, // goerli's id
-      production: false,
-      // gas: 4465030, // goerli has a lower block limit than mainnet
-      // gasPrice: 10992342,
+      gas: 4465030, // goerli has a lower block limit than mainnet
+      gasPrice: 24293790182,
     },
     // Another network with more advanced options...
     // advanced: {
@@ -90,7 +44,6 @@ module.exports = {
     // from: <address>,        // Account to send txs from (default: accounts[0])
     // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
-
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     // ropsten: {
@@ -101,7 +54,6 @@ module.exports = {
     // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
     // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     // },
-
     // Useful for private networks
     // private: {
     // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
@@ -109,12 +61,10 @@ module.exports = {
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
   },
-
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
   },
-
   // Configure your compilers
   compilers: {
     solc: {
